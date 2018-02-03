@@ -260,6 +260,7 @@ endif
 
 " Builtins {{{
 " ============
+    syn match   pythonBuiltinIsolator +\(\.\)\@<!\<\K\+\>\(['"]\)\@!+ contains=pythonBuiltinType,pythonBuiltinFunc
 
     " Builtin objects and types
     if g:pymode_syntax_builtin_objs
@@ -268,25 +269,25 @@ endif
     endif
 
     if g:pymode_syntax_builtin_types
-        syn keyword pythonBuiltinType type object
-        syn keyword pythonBuiltinType str basestring unicode buffer bytearray bytes chr unichr
-        syn keyword pythonBuiltinType dict int long bool float complex set frozenset list tuple
-        syn keyword pythonBuiltinType file super
+        syn keyword pythonBuiltinType type object contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinType str basestring unicode buffer bytearray bytes chr unichr contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinType dict int long bool float complex set frozenset list tuple contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinType file super contained containedin=pythonBuiltinIsolator
     endif
 
     " Builtin functions
     if g:pymode_syntax_builtin_funcs
-        syn keyword pythonBuiltinFunc   __import__ abs all any apply
-        syn keyword pythonBuiltinFunc   bin callable classmethod cmp coerce compile
-        syn keyword pythonBuiltinFunc   delattr dir divmod enumerate eval execfile filter
-        syn keyword pythonBuiltinFunc   format getattr globals locals hasattr hash help hex id
-        syn keyword pythonBuiltinFunc   input intern isinstance issubclass iter len map max min
-        syn keyword pythonBuiltinFunc   next oct open ord pow property range xrange
-        syn keyword pythonBuiltinFunc   raw_input reduce reload repr reversed round setattr
-        syn keyword pythonBuiltinFunc   slice sorted staticmethod sum vars zip
+        syn keyword pythonBuiltinFunc   __import__ abs all any apply contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   bin callable classmethod cmp coerce compile contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   delattr dir divmod enumerate eval execfile filter contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   format getattr globals locals hasattr hash help hex id contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   input intern isinstance issubclass iter len map max min contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   next oct open ord pow property range xrange contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   raw_input reduce reload repr reversed round setattr contained containedin=pythonBuiltinIsolator
+        syn keyword pythonBuiltinFunc   slice sorted staticmethod sum vars zip contained containedin=pythonBuiltinIsolator
 
         if g:pymode_syntax_print_as_function
-            syn keyword pythonBuiltinFunc   print
+            syn keyword pythonBuiltinFunc   print contained containedin=pythonBuiltinIsolator
         endif
 
     endif

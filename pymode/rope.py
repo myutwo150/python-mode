@@ -1,7 +1,5 @@
 """Integration with Rope library."""
 
-from __future__ import absolute_import, print_function
-
 import os.path
 import re
 import site
@@ -94,7 +92,8 @@ def complete(dot=False):
     line = env.lines[row - 1]
     cline = line[:col] + p_prefix + line[col:]
     if cline != line:
-        env.curbuf[row - 1] = env.prepare_value(cline, dumps=False)
+        if 'noinsert' not in env.var('&completeopt'):
+            env.curbuf[row - 1] = env.prepare_value(cline, dumps=False)
     env.current.window.cursor = (row, col + len(p_prefix))
     env.run('complete', col - len(prefix) + len(p_prefix) + 1, proposals)
     return True
@@ -234,6 +233,8 @@ def new():
         default = env.var('g:pymode_rope_project_root')
         if not default:
             default = env.var('getcwd()')
+        if sys.platform.startswith('win32'):
+            default = default.replace('\\', '/')
         root = env.var('input("Enter project root: ", "%s")' % default)
     ropefolder = env.var('g:pymode_rope_ropefolder')
     prj = project.Project(projectroot=root, ropefolder=ropefolder)

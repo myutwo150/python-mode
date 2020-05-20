@@ -5,7 +5,7 @@ endif
 if g:pymode_python == 'disable'
 
     if g:pymode_warning
-        call pymode#error("Pymode requires vim compiled with +python. Most of features will be disabled.")
+        call pymode#error("Pymode requires vim compiled with +python3 (exclusively). Most of features will be disabled.")
     endif
 
     finish
@@ -232,7 +232,6 @@ if g:pymode_debug
         let g:pymode_debug_tempfile=matchstr(
             \ execute(
             \ g:pymode_python
-            \ . " from __future__ import print_function;"
             \ . " import os;import tempfile; marker='|';"
             \ . " print(marker, tempfile.gettempdir(), os.sep, "
             \ .        "'pymode_debug_file.txt', marker, sep='', end='')"),
